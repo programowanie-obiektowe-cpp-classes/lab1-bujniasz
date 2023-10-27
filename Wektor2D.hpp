@@ -1,87 +1,45 @@
 #include <iostream>
 #include <cmath>
 
-class Informer
-{
-public:
-
-    Informer()
-    {
-        std::cout << "Wektor pomyslnie skonstruowany" << '\n';
-    }
-
-    ~Informer()
-    {
-        std::cout << "Wektor pomyslnie zniszczony" << '\n';
-    }
-};
-
-
 class Wektor2D
 {
-public:
-    Informer info{};
+    public:
+        //konstruktor domyslny tworzacy wektor [0,0]
+        Wektor2D()
+        {
+            x = 0;
+            y = 0;
+        }
 
+        //settery i gettery
+        void setX(double wsp) {x = wsp;}
+        double getX() {return x;}
 
-    //konstruktor
-    Wektor2D(double wsp1, double wsp2)
-    {
-        x = wsp1;
-        y = wsp2;
-        //std::cout << "Wsp. x to: " << x << '\n';
-        //std::cout << "Wsp. y to: " << y << '\n';
-    }
+        void setY(double wsp) {y = wsp;}
+        double getY() {return y;}        
 
-    //destruktor
-    ~Wektor2D()
-    {
-        //std::cout << "Destrukcja wektora " << '\n';
-    }
+        //kontruktor parametryczny
+        Wektor2D(double wsp1, double wsp2)
+        {
+            x = wsp1;
+            y = wsp2;
+        }
+        
 
-    void setX(double wsp1)
-    {
-        x = wsp1;
-    }
+        //przeciazenie sumy
+        Wektor2D operator+(Wektor2D nastepny)
+        {
+            return Wektor2D{x + nastepny.x, y + nastepny.y};
+        }
 
-    double getX()
-    {
-        return x;
-    }
+        //przeciazanie iloczynu
+        double operator*(Wektor2D nastepny)
+        {
+            return x*nastepny.x + y*nastepny.y;
+        }
 
-    void setY(double wsp2)
-    {
-        y = wsp2;
-    }
+    private:
+        double x;
+        double y;    
 
-    double getY()
-    {
-        return y;
-    }
-
-    double norm()
-    {
-        return sqrt(x * x + y * y);
-    }
-
-    void print()
-    {
-        std::cout << "Norma wektora to: " << norm() << '\n';
-    }
-
-    Wektor2D operator+(Wektor2D nowy)
-    {
-        Wektor2D C{ x + nowy.x, y + nowy.y };
-        return C;
-    }
-
-    Wektor2D operator*(const Wektor2D& nastepny)
-    {
-        return Wektor2D(x + nastepny.x, y + nastepny.y);
-    }
-
-
-
-private:
-    double x;
-    double y;
 };
